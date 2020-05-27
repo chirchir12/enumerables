@@ -8,13 +8,18 @@ module Enumerable
       end
     end
     self
- end
+  end
 
   def my_each_with_index
     index = -1
     my_each do |value|
       yield value, index += 1
     end
-    self
-    end
+	end
+	def my_select
+		newArray = []
+		self.my_each {|value| newArray << value if yield value}
+		newArray
+	end
+	
 end
