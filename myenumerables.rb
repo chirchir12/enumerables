@@ -1,25 +1,50 @@
 module Enumerable
-  def my_each
-    if block_given?
-      counter = 0
+	def my_each
+			if block_given?
+				counter = 0
       while counter < length
         yield self[counter]
         counter += 1
-      end
-    end
-    self
+			end
+			self
+		else 
+			to_enum	
+			end
   end
 
   def my_each_with_index
-    index = -1
+		if block_given?
+			index = -1
     my_each do |value|
       yield value, index += 1
-    end
+		end
+		self
+		else
+			to_enum
+		end
 	end
 	def my_select
-		newArray = []
-		self.my_each {|value| newArray << value if yield value}
-		newArray
+		if block_given?
+			newArray = []
+			self.my_each {|value| newArray << value if yield value}
+			return newArray
+		else 
+			return to_enum
+		end
 	end
+	def my_all?
+    if block_given?
+        my_each do |val|
+            return false if !yield(val)
+        end 
+    elsif !block_given?
+       my_each do |val|
+				return false if val.nil?  || !val 
+			 end   
+    end
+    true
+	end
+
+	
 	
 end
