@@ -67,6 +67,18 @@ module Enumerable
     end
     true
 	end
+	def my_count(param=nil)
+		counter = 0
+		return self.length if !block_given? && param.nil?
+		if block_given?
+			my_each {|val| if yield(val) then counter+=1 end}
+		end
+		if param
+			my_each {|val| if val==param then counter+=1 end}
+			
+		end
+		counter
+	end
 	
 	
 
