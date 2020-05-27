@@ -11,7 +11,6 @@ module Enumerable
 			to_enum	
 			end
   end
-
   def my_each_with_index
 		if block_given?
 			index = -1
@@ -44,6 +43,20 @@ module Enumerable
     end
     true
 	end
+	def my_any?
+    if block_given?
+        my_each do |val|
+            return true if yield(val)
+        end 
+    elsif !block_given?
+       my_each do |val|
+				return true if !val.nil?  || val 
+			 end   
+    end
+    false
+	end
+	
+	
 
 	
 	
