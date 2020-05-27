@@ -79,6 +79,15 @@ module Enumerable
 		end
 		counter
 	end
+	def my_map
+		if block_given?
+			newArray = []
+			self.my_each {|val| newArray << yield(val)}
+			return newArray
+		else 
+			return to_enum
+		end
+	end
 	
 	
 
