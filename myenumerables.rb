@@ -88,6 +88,17 @@ module Enumerable
 			return to_enum
 		end
 	end
+	def my_map(proc=nil)
+		if block_given? || !proc.nil?
+			newArray = []
+			self.my_each {|val| newArray << proc.call(val) if !proc.nil?}
+			self.my_each {|val| newArray << yield(val) if block_given?}
+			return newArray
+		else 
+			return to_enum
+		end
+	end
+
 	
 	
 
