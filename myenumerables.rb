@@ -114,10 +114,8 @@ module Enumerable
 		enum.my_each { |item| sum = sum.send(symbol, item) }
 		sum
 	end
-
-	
-	
-
-	
-	
 end
+
+def multiply_els
+    my_inject(:*)
+  end
