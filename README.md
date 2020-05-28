@@ -8,7 +8,7 @@ In this project,I implemented a Custom Enumerable method. The methods implemente
 
 ## Demo
 
-![screenshot](images/enumerable.png)
+![screenshot](images/scre.png)
 
 ## Getting Started
 
