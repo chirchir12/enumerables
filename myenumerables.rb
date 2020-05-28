@@ -98,6 +98,22 @@ module Enumerable
 			return to_enum
 		end
 	end
+	def my_inject(*args) 
+		if args.length==2
+			my_injector(args[0], args[1], self)	
+		elsif args.length==1 && !block_given?
+			my_injector(self.first, args[0], self.drop(1))	
+		else
+			sum = args[0] || self.first
+      		self.my_each { |item| sum = yield(sum, item) if block_given? }
+			  sum	
+		end	
+	end
+	def my_injector(sum, symbol, enum)
+		enum = enum.to_a if enum.is_a? Range
+		enum.my_each { |item| sum = sum.send(symbol, item) }
+		sum
+	end
 
 	
 	
