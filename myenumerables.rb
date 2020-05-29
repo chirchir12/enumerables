@@ -89,22 +89,14 @@ module Enumerable
     counter
   end
 
-  def my_map
-    if block_given?
-      new_array = []
-      my_each { |val| new_array << yield(val) }
-      new_array
-    else
-      to_enum
-    end
-  end
-
-  def my_map_with_proc(proc = nil)
-    if block_given? || !proc.nil?
-      new_array = []
-      my_each { |val| new_array << proc.call(val) unless proc.nil? }
-      my_each { |val| new_array << yield(val) if block_given? }
-      new_array
+  def my_map(proc = nil)
+    new_array = []
+    if proc !=nil
+      my_each { |val| new_array << proc.call(val)}
+      return new_array
+    elsif block_given?
+      my_each { |val| new_array << yield(val)}
+      return new_array
     else
       to_enum
     end
