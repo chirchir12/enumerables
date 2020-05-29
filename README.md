@@ -1,6 +1,6 @@
 # Ruby Enumerable methods
 
-In this project,I implemented a Custom Enumerable method. The methods implemented include: #my_each, #my_each_with_index, #my_select, # my_all, #my_any ,#my_none ,#my_count, #my_map, #my_inject, my_map and multiply_els.
+In this project,I implemented a Custom Enumerable module. The methods implemented include: #my_each, #my_each_with_index, #my_select, # my_all, #my_any ,#my_none ,#my_count, #my_map, #my_inject, my_map and multiply_els.
 
 ## Built With
 
