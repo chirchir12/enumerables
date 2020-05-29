@@ -44,7 +44,7 @@ module Enumerable
         my_each do |val|
           return false unless val.is_a? param
         end
-      elsif param.is_a Regexp
+      elsif param.is_a? Regexp
         my_each do |val|
           return false unless val.to_s.match(param)
         end
@@ -66,12 +66,26 @@ module Enumerable
     true
   end
 
-  def my_any?
-    if block_given?
+  def my_any?(param = nil)
+    if !param.nil?
+      if param.is_a? Class
+        my_each do |val|
+          return true if val.is_a? param
+        end
+      elsif param.is_a? Regexp
+        my_each do |val|
+          return true if val.to_s.match(param)
+        end
+      else
+        my_each do |val|
+          return true if val == true
+        end
+      end
+    elsif block_given?
       my_each do |val|
         return true if yield(val)
       end
-    elsif !block_given?
+    elsif !block_given? && param.nil?
       my_each do |val|
         return true if !val.nil? || val
       end
