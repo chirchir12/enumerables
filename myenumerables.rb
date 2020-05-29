@@ -93,12 +93,26 @@ module Enumerable
     false
   end
 
-  def my_none?
-    if block_given?
+  def my_none?(param = nil)
+    if !param.nil?
+      if param.is_a? Class
+        my_each do |val|
+          return false if val.is_a? param
+        end
+      elsif param.is_a? Regexp
+        my_each do |val|
+          return false if val.to_s.match(param)
+        end
+      else
+        my_each do |val|
+          return false if val
+        end
+      end
+    elsif block_given?
       my_each do |val|
         return false if yield(val)
       end
-    elsif !block_given?
+    elsif !block_given? && param.nil?
       my_each do |val|
         return false if !val.nil? || val
       end
