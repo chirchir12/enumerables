@@ -1,4 +1,5 @@
 # rubocop:disable  Metrics/ModuleLength
+# rubocop:disable  Metrics/PerceivedComplexity
 # rubocop:disable Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
@@ -103,13 +104,17 @@ module Enumerable
   end
 
   def my_inject(*args)
+    temp_self = self
     if args.length == 2
       my_injector(args[0], args[1], self)
     elsif args.length == 1 && !block_given?
       my_injector(first, args[0], drop(1))
     else
-      sum = args[0] || first
-      my_each { |item| sum = yield(sum, item) if block_given? }
+      temp_self = temp_self.to_a if temp_self.is_a? Range
+      value = temp_self.first
+      value = 0 if temp_self.first.is_a? Integer
+      sum = args[0] || value
+      temp_self.each { |item| sum = yield(sum, item) if block_given? }
       sum
     end
   end
@@ -121,6 +126,7 @@ module Enumerable
   end
 end
 # rubocop:enable  Metrics/ModuleLength
+# rubocop:enable  Metrics/PerceivedComplexity
 # rubocop:enable Metrics/CyclomaticComplexity
 def multiply_els
   my_inject(:*)
