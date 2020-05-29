@@ -136,11 +136,13 @@ module Enumerable
 
   def my_map(proc = nil)
     new_array = []
+    temp_self = self
+    temp_self = to_a if temp_self.is_a? Range
     if !proc.nil?
-      my_each { |val| new_array << proc.call(val) }
+      temp_self.my_each { |val| new_array << proc.call(val) }
       new_array
     elsif block_given?
-      my_each { |val| new_array << yield(val) }
+      temp_self.my_each { |val| new_array << yield(val) }
       new_array
     else
       to_enum
