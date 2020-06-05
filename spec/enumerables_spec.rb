@@ -74,5 +74,10 @@ describe Enumerable do
         expect(str.my_all?(/t/)).to eql(false)
       end
     end
+    context 'when Class is given' do
+      it 'should return true' do
+        expect(num.my_all?(Numeric)).to eql(true)
+      end
+    end
   end
 end
