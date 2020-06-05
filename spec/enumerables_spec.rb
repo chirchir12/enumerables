@@ -155,6 +155,14 @@ describe Enumerable do
       it 'should return no of elements in array' do
         expect(arr.my_count).to eql(arr.count)
       end
+      it 'should return no of elements in arg' do
+        expect(arr.my_count(4)).to eql(arr.count(4))
+      end
+    end
+    context 'when block is given' do
+      it 'should return no of even no in array' do
+        expect(arr.my_count(&:even?)).to eql(arr.count(&:even?))
+      end
     end
   end
 end
