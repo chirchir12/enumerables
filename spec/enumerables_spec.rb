@@ -165,4 +165,23 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_map' do
+    context 'when range is given' do
+      it 'should return modified elements' do
+        expect((1..4).my_map { |i| i * i }).to eql((1..4).map { |i| i * i })
+      end
+      it 'should return unmodified elements' do
+        expect((1..4).my_map { 'chir' }).to eql((1..4).map { 'chir' })
+      end
+    end
+    context 'when no block is given' do
+      it 'should return enumerable' do
+        expect(arr.my_map).to be_a(Enumerable)
+      end
+      it 'should return an array' do
+        expect(arr.my_map.to_a).to eql(arr.map.to_a)
+      end
+    end
+  end
 end
