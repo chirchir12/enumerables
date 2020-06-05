@@ -1,3 +1,4 @@
+# rubocop:disable Style/Proc
 require_relative '../myenumerables.rb'
 
 describe Enumerable do
@@ -8,7 +9,7 @@ describe Enumerable do
   let(:mixVal) { [nil, true, 99] }
   let(:hash) { {} }
   let(:emptyArr) { [] }
-  let(:proc) { proc { |val| val * 3 } }
+  let(:proc) { Proc.new { |val| val * 3 } }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return enumerable' do
@@ -187,11 +188,42 @@ describe Enumerable do
 
     context 'when no proc is given' do
       it 'should return mutliples of three' do
-        expect(arr.my_map(proc)).to eql(arr.map(proc))
+        expect(arr.my_map(&proc)).to eql(arr.map(&proc))
       end
       it 'should return an array' do
         expect(arr.my_map.to_a).to eql(arr.map.to_a)
       end
     end
   end
+
+  describe '#my_inject' do
+    context 'when range is given ' do
+      it 'should return sum of elements' do
+        expect((5..10).my_inject(:+)).to eql((5..10).reduce(:+))
+      end
+
+      it 'should return sum of elements when using block' do
+        expect((5..10).my_inject { |sum, n| sum + n }).to eql((5..10).inject { |sum, n| sum + n })
+      end
+
+      it 'should return results of multiplying elemens of list' do
+        expect((5..10).my_inject(1, :*)).to eql((5..10).reduce(1, :*))
+      end
+      it 'should return results of multiplying elemens of list with block given' do
+        expect((5..10).my_inject(1) { |product, n| product * n }).to eql((5..10).inject(1) { |product, n| product * n })
+      end
+    end
+    context 'when  block is given' do
+      it 'longest word' do
+        longest = %w[cat sheep bear].inject do |memo, word|
+          memo.length > word.length ? memo : word
+        end
+        mylongest = %w[cat sheep bear].my_inject do |memo, word|
+          memo.length > word.length ? memo : word
+        end
+        expect(mylongest).to eql(longest)
+      end
+    end
+  end
 end
+# rubocop:enable Style/Proc
