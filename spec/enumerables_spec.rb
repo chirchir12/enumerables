@@ -89,4 +89,34 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_any' do
+    context 'when the block is given' do
+      it 'should return true for at leat truthy values' do
+        expect(str.my_any? { |word| word.length >= 3 }).to eql(true)
+      end
+      it 'should return true when one element in list is false' do
+        expect(str.my_any? { |word| word.length >= 4 }).to eql(true)
+      end
+    end
+    context 'when regular expression is given' do
+      it 'should return true when there is match is found' do
+        expect(str.my_any?(/d/)).to eql(true)
+      end
+    end
+    context 'when Class is given' do
+      it 'should return true' do
+        expect(mixVal.my_any?(Numeric)).to eql(true)
+      end
+    end
+    context 'when no block is given' do
+      it 'should return true when nil is in the elements' do
+        expect(mixVal.my_any?).to eql(true)
+      end
+
+      it 'should return false for empty array' do
+        expect(emptyArr.my_any?).to eql(false)
+      end
+    end
+  end
 end
