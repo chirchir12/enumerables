@@ -119,4 +119,34 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_none?' do
+    context 'when the block is given' do
+      it 'should return false for truthy values' do
+        expect(str.my_none? { |word| word.length >= 3 }).to eql(false)
+      end
+      it 'should return false when one element in list is true' do
+        expect(str.my_none? { |word| word.length >= 4 }).to eql(false)
+      end
+    end
+    context 'when regular expression is given' do
+      it 'should return false when match is found' do
+        expect(str.my_none?(/t/)).to eql(false)
+      end
+    end
+    context 'when Class is given' do
+      it 'should return false' do
+        expect(num.my_none?(Numeric)).to eql(false)
+      end
+    end
+    context 'when no block is given' do
+      it 'should return false when nil is in the elements' do
+        expect(mixVal.my_none?).to eql(false)
+      end
+
+      it 'should return  true for empty array' do
+        expect(emptyArr.my_none?).to eql(true)
+      end
+    end
+  end
 end
