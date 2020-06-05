@@ -69,5 +69,10 @@ describe Enumerable do
         expect(str.my_all? { |word| word.length >= 4 }).to eql(false)
       end
     end
+    context 'when regular expression is given' do
+      it 'should return when no match is found' do
+        expect(str.my_all?(/t/)).to eql(false)
+      end
+    end
   end
 end
