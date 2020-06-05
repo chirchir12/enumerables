@@ -79,5 +79,10 @@ describe Enumerable do
         expect(num.my_all?(Numeric)).to eql(true)
       end
     end
+    context 'when no block is given' do
+      it 'should return false when nil is in the elements' do
+        expect(mixVal.my_all?).to eql(false)
+      end
+    end
   end
 end
