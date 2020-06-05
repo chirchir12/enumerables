@@ -65,6 +65,9 @@ describe Enumerable do
       it 'should return true for truthy values' do
         expect(str.my_all? { |word| word.length >= 3 }).to eql(true)
       end
+      it 'should return false when one element in list is false' do
+        expect(str.my_all? { |word| word.length >= 4 }).to eql(false)
+      end
     end
   end
 end
