@@ -8,6 +8,7 @@ describe Enumerable do
   let(:mixVal) { [nil, true, 99] }
   let(:hash) { {} }
   let(:emptyArr) { [] }
+  let(:proc) { proc { |val| val * 3 } }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return enumerable' do
@@ -178,6 +179,15 @@ describe Enumerable do
     context 'when no block is given' do
       it 'should return enumerable' do
         expect(arr.my_map).to be_a(Enumerable)
+      end
+      it 'should return an array' do
+        expect(arr.my_map.to_a).to eql(arr.map.to_a)
+      end
+    end
+
+    context 'when no proc is given' do
+      it 'should return mutliples of three' do
+        expect(arr.my_map(proc)).to eql(arr.map(proc))
       end
       it 'should return an array' do
         expect(arr.my_map.to_a).to eql(arr.map.to_a)
