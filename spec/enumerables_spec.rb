@@ -83,6 +83,10 @@ describe Enumerable do
       it 'should return false when nil is in the elements' do
         expect(mixVal.my_all?).to eql(false)
       end
+
+      it 'should return for empty array' do
+        expect(emptyArr.my_all?).to eql(true)
+      end
     end
   end
 end
