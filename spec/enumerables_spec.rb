@@ -149,4 +149,12 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_count' do
+    context 'when no block is given' do
+      it 'should return no of elements in array' do
+        expect(arr.my_count).to eql(arr.count)
+      end
+    end
+  end
 end
