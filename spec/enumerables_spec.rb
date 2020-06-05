@@ -4,7 +4,10 @@ describe Enumerable do
   let(:arr) { [1, 2, 3, 4] }
   let(:str) { %w[cat dog wombat] }
   let(:str2) { %w[a b c d e f] }
+  let(:num) { [1, 2i, 3.14] }
+  let(:mixVal) { [nil, true, 99] }
   let(:hash) { {} }
+  let(:emptyArr) { [] }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return enumerable' do
@@ -27,7 +30,11 @@ describe Enumerable do
         expect(arr.my_each_with_index { |v, k| v * k }).to eql(arr.my_each_with_index { |v, k| v * k })
       end
       it 'should return hash of values' do
-        expect(str.my_each_with_index { |item, index| hash[item] = index }).to eql(str.my_each_with_index { |item, index| hash[item] = index })
+        expect(str.my_each_with_index do |item, index|
+                 hash[item] = index
+               end).to eql(str.my_each_with_index do |item, index|
+                             hash[item] = index
+                           end)
       end
     end
     context 'when no block is given' do
@@ -53,8 +60,11 @@ describe Enumerable do
     end
   end
 
-  describe "#my_all" do
-      
+  describe '#my_all' do
+    context 'when the block is given' do
+      it 'should return true for truthy values' do
+        expect(str.my_all? { |word| word.length >= 3 }).to eql(true)
+      end
+    end
   end
-  
 end
